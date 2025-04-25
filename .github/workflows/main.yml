@@ -20,4 +20,5 @@ jobs:
         script: |
           cd /home/ubuntu/projetos/nextjs
           git pull
+          cd ~/validador
           docker-compose restart nextjs
