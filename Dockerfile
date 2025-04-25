@@ -105,7 +105,7 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 # COPY docker-entrypoint.sh /usr/local/bin/
 # ENTRYPOINT ["docker-entrypoint.sh"]
-# TESTE PARA VER SE O ACTION DO GITHUB FUNCIONA COM A CONFIGURAÇÃO DA CHAVE SSH
+# TESTE PARA VER SE O ACTION DO GITHUB FUNCIONA COM A CONFIGURAÇÃO DA CHAVE SSH :-)
 RUN apk add bash
 CMD [ "node" ]
 EXPOSE 3000
