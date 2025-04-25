@@ -1,0 +1,23 @@
+name: Update directory
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Update directory
+      uses: appleboy/ssh-action@master
+      with:
+        host: 64.181.160.224
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /home/ubuntu/projetos/nextjs
+          git pull
+          docker-compose restart nextjs
