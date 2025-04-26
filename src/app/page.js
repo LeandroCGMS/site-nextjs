@@ -21,6 +21,12 @@ function Form() {
 		return await executeRecaptcha('action'); // 'homepage' é uma action específica, você pode definir a sua
 	}
 	generateGoogleToken = handleReCaptcha
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			// Certifique-se de que o código só será executado no cliente
+			window.generateGoogleToken = handleReCaptcha;
+		}
+	}, [executeRecaptcha]);
 
 
 	useEffect(() => {
