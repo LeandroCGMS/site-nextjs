@@ -91,7 +91,7 @@ function Form() {
                         sendForm(id, hash, password, passwordConfirm)
                     }}
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2"
+                    className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2 cursor-pointer"
                 >
                     Alterar Senha
                 </button>
