@@ -34,7 +34,7 @@ function Form() {
                 </h1>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 mb-0">
                         Id de Usuário
                     </label>
                     <input
@@ -47,7 +47,7 @@ function Form() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
                         Hash
                     </label>
                     <input
@@ -60,7 +60,7 @@ function Form() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
                         Nova Senha
                     </label>
                     <input
@@ -73,7 +73,7 @@ function Form() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
                         Confirmação da Nova Senha
                     </label>
                     <input
@@ -109,7 +109,37 @@ export default function RecoverPassword() {
 }
 
 async function sendForm(id, hash, password, passwordConfirm) {
-	console.warn("função disparada com sucesso. ", id, hash, password, passwordConfirm)
-	console.warn("google token: \n\n")
-	console.log(await generateGoogleToken())
+    var formData = new FormData()
+    formData.append('id', id)
+    formData.append('hash', hash)
+    formData.append('password', password)
+    formData.append('password_confirm', passwordConfirm)
+    var tokengoogle = await generateGoogleToken()
+    try {
+        var URL = 'https://leandrocgms.online/api-angular/recover-password/'
+        response = await fetch(URL, {
+            method: 'PATCH', // PATCH aciona o método patch do servidor que realiza a troca da senha baseada nas informações passadas por aqui.
+            headers: {
+                'tokengoogle': tokengoogle,
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        json = await response.json()
+        if (json?.errors) errors = json.errors
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+        setTextModalRef(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
+        setLoadingRef(false)
+    } catch (error) {
+        var stringErrors = ''
+        for (const [key, value] of Object.entries(errors)) {
+            stringErrors += `${value}\n`
+        }
+        console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
+        setLoadingRef(false)
+        setTextModalRef(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
+            `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
+    }
 }
