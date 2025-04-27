@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-
+import NProgress from "nprogress";
+import { useRouter } from "next/navigation";
 var generateGoogleToken = null
 
 function Form() {
@@ -109,6 +110,7 @@ export default function RecoverPassword() {
 }
 
 async function sendForm(id, hash, password, passwordConfirm) {
+    NProgress.start()
     var formData = new FormData()
     formData.append('id', id)
     formData.append('hash', hash)
@@ -131,14 +133,14 @@ async function sendForm(id, hash, password, passwordConfirm) {
             throw new Error(`Erro: ${response.status}`);
         }
         setTextModalRef(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
-        setLoadingRef(false)
+        NProgress.done()
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
             stringErrors += `${value}\n`
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
-        setLoadingRef(false)
+        NProgress.done()
         setTextModalRef(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
             `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
     }
