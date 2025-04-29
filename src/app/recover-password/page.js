@@ -124,7 +124,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
     formData.append('password_confirm', passwordConfirm)
     var tokengoogle = await generateGoogleToken()
     try {
-        var URL = 'https://leandrocgms.online/api-angular/recover-password/'
+        var URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
         response = await fetch(URL, {
             method: 'PATCH', // PATCH aciona o método patch do servidor que realiza a troca da senha baseada nas informações passadas por aqui.
             headers: {
