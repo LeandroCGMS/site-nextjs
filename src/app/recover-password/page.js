@@ -5,6 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import NProgress from "nprogress";
 import { useRouter } from "next/navigation";
+import "nprogress/nprogress.css";
+import "./page.css";
+import Modal from 'react-modal';
+import { getNow } from "@/utils/functions";
 var generateGoogleToken = null
 
 function Form() {
@@ -110,7 +114,9 @@ export default function RecoverPassword() {
 }
 
 async function sendForm(id, hash, password, passwordConfirm) {
+    var errors = {}
     NProgress.start()
+    console.log(id, hash, password, passwordConfirm)
     var formData = new FormData()
     formData.append('id', id)
     formData.append('hash', hash)

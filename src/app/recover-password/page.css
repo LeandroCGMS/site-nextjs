@@ -1,0 +1,20 @@
+/* Personalize a barra de progresso */
+#nprogress .bar {
+    
+}
+
+/* Personalize o ícone do spinner */
+#nprogress .spinner-icon {
+    height: 4em;
+    width: 4em;
+}
+
+/* Personalize a posição da barra */
+#nprogress {
+    height: 50em;
+}
+
+/* Adicione uma sombra à barra */
+#nprogress .bar {
+    height: 0.5em;
+}
