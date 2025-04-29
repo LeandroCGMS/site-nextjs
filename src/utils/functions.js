@@ -1,5 +1,5 @@
 export function getNow() {
-    return date.toLocaleString('pt-BR');
+    return new Date().toLocaleString('pt-BR');
     // const date = new Date();
     // const options = {
     //     year: 'numeric',
