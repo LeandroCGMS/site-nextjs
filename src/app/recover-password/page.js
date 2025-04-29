@@ -115,6 +115,7 @@ export default function RecoverPassword() {
 
 async function sendForm(id, hash, password, passwordConfirm) {
     var errors = {}
+    var response
     NProgress.start()
     console.log(id, hash, password, passwordConfirm)
     var formData = new FormData()
