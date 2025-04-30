@@ -31,8 +31,59 @@ function Form() {
         // Chame a função para obter o token quando necessário, por exemplo, ao enviar um formulário.
         // Você pode associar isso a um evento de clique de botão ou outra ação.
     }, [executeRecaptcha]);
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
+
+    // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+    Modal.setAppElement('body');
+
+    const subtitle = useRef(null);
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        subtitle.style.color = '#f00';
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center" id="divMain">
+            <Modal
+                isOpen={modalIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <h2 ref={subtitle}>Hello</h2>
+                <button onClick={closeModal}>close</button>
+                <div>I am a modal</div>
+                <form>
+                    <input />
+                    <button>tab navigation</button>
+                    <button>stays</button>
+                    <button>inside</button>
+                    <button>the modal</button>
+                </form>
+            </Modal>
+
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">
                     Redefinir Senha
@@ -127,7 +178,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
     try {
         var URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
         response = await fetch(URL, {
-            method: 'GET', // PATCH aciona o método patch do servidor que realiza a troca da senha baseada nas informações passadas por aqui.
+            method: 'PATCH',
             headers: {
                 'tokengoogle': tokengoogle,
                 'Accept': 'application/json',
@@ -139,7 +190,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        setTextModalRef(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
+        setTextModal(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
         NProgress.done()
     } catch (error) {
         var stringErrors = ''
@@ -148,7 +199,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
-        setTextModalRef(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
+        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
             `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
     }
 }
