@@ -181,7 +181,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
         URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
     try {
         response = await fetch(URL, {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 'tokengoogle': tokengoogle,
                 'Accept': 'application/json',
