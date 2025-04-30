@@ -165,7 +165,6 @@ export default function RecoverPassword() {
 }
 
 async function sendForm(id, hash, password, passwordConfirm) {
-    console.warn(process.env.NODE_ENV)
     var errors = {}
     var response
     NProgress.start()
@@ -176,12 +175,12 @@ async function sendForm(id, hash, password, passwordConfirm) {
     formData.append('password', password)
     formData.append('password_confirm', passwordConfirm)
     var tokengoogle = await generateGoogleToken()
-    var URL
+    var URL, json
     process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
         URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
     try {
         response = await fetch(URL, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'tokengoogle': tokengoogle,
                 'Accept': 'application/json',
@@ -193,7 +192,7 @@ async function sendForm(id, hash, password, passwordConfirm) {
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        setTextModal(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
+        setTextModal(`🚀 Parabéns. Sua senha foi alterada com sucesso. Anote ela em um local seguro.`)
         NProgress.done()
     } catch (error) {
         var stringErrors = ''
