@@ -149,7 +149,7 @@ function Form() {
                 <button
                     onClick={(event) => {
                         // handleSubmit(event);
-                        sendForm(id, hash, password, passwordConfirm, setTextModal)
+                        sendForm(id, hash, password, passwordConfirm, setTextModal, setIsOpen)
                     }}
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2 cursor-pointer"
@@ -169,7 +169,7 @@ export default function RecoverPassword() {
     )
 }
 
-async function sendForm(id, hash, password, passwordConfirm, setTextModal) {
+async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIsOpen) {
     var errors = {}
     var response
     NProgress.start()
@@ -199,13 +199,15 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal) {
         }
         NProgress.done()
         setTextModal(`😃 Sucesso! Sua senha foi alterada com sucesso.`)
+        setIsOpen(true)
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
-            stringErrors += `${value}\n`
+            stringErrors += `${value}\n `
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
+        setIsOpen(true)
         setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
             `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
     }
