@@ -48,6 +48,11 @@ function Form() {
 
     const subtitle = useRef(null);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [textModal, setTextModal] = useState('')
+
+    useEffect(() => {
+        textModal ? openModal() : closeModal()
+    }, [textModal])
 
     function openModal() {
         setIsOpen(true);
@@ -55,7 +60,7 @@ function Form() {
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
-        subtitle.style.color = '#f00';
+        subtitle.current.style.color = '#f00';
     }
 
     function closeModal() {
@@ -74,14 +79,14 @@ function Form() {
             >
                 <h2 ref={subtitle}>Hello</h2>
                 <button onClick={closeModal}>close</button>
-                <div>I am a modal</div>
-                <form>
+                <div>{textModal}</div>
+                {/* <form>
                     <input />
                     <button>tab navigation</button>
                     <button>stays</button>
                     <button>inside</button>
                     <button>the modal</button>
-                </form>
+                </form> */}
             </Modal>
 
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
@@ -144,7 +149,7 @@ function Form() {
                 <button
                     onClick={(event) => {
                         // handleSubmit(event);
-                        sendForm(id, hash, password, passwordConfirm)
+                        sendForm(id, hash, password, passwordConfirm, setTextModal)
                     }}
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2 cursor-pointer"
@@ -164,7 +169,7 @@ export default function RecoverPassword() {
     )
 }
 
-async function sendForm(id, hash, password, passwordConfirm) {
+async function sendForm(id, hash, password, passwordConfirm, setTextModal) {
     var errors = {}
     var response
     NProgress.start()
@@ -192,8 +197,8 @@ async function sendForm(id, hash, password, passwordConfirm) {
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        setTextModal(`🚀 Parabéns. Sua senha foi alterada com sucesso. Anote ela em um local seguro.`)
         NProgress.done()
+        setTextModal(`😃 Sucesso! Sua senha foi alterada com sucesso.`)
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
