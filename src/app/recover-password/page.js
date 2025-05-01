@@ -60,7 +60,7 @@ function Form() {
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
-        subtitle.current.style.color = '#f00';
+        if(subtitle?.current) subtitle.current.style.color = '#f00';
     }
 
     function closeModal() {
@@ -77,16 +77,8 @@ function Form() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <h2 ref={subtitle}>Hello</h2>
-                <button onClick={closeModal}>close</button>
+                <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer" onClick={closeModal}>Fechar</button>
                 <div>{textModal}</div>
-                {/* <form>
-                    <input />
-                    <button>tab navigation</button>
-                    <button>stays</button>
-                    <button>inside</button>
-                    <button>the modal</button>
-                </form> */}
             </Modal>
 
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
