@@ -77,7 +77,7 @@ function Form() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div>{textModal}</div>
+                <div><strong><pre>{textModal}</pre></strong></div>
                 <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer" onClick={closeModal}>Fechar</button>
             </Modal>
 
