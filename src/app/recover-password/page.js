@@ -45,6 +45,7 @@ function Form() {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             margin: '4px',
+            // padding: 0,
             fontWeight: 'bold',
         },
     };
@@ -91,7 +92,7 @@ function Form() {
                 contentLabel="Example Modal"
             >
                 <div>
-                    <h1 className="w-full bg-blue-500 border border-black text-center text-white mb-2 rounded-xl">{titleModal}</h1>
+                    <h1 className="w-full bg-blue-500 border border-black text-center text-white rounded-xl">{titleModal}</h1>
                     <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
                 </div>
                 <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer m-2" onClick={closeModal}>Fechar</button>
