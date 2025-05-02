@@ -34,12 +34,17 @@ function Form() {
 
     const customStyles = {
         content: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
             top: '50%',
             left: '50%',
             right: 'auto',
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
+            margin: '4px'
         },
     };
 
@@ -77,8 +82,8 @@ function Form() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div><strong><pre dangerouslySetInnerHTML={{ __html: textModal }}></pre></strong></div>
-                <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer" onClick={closeModal}>Fechar</button>
+                <div dangerouslySetInnerHTML={{ __html: textModal }}></div>
+                <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer m-2" onClick={closeModal}>Fechar</button>
             </Modal>
 
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
@@ -173,8 +178,9 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIs
     formData.append('password_confirm', passwordConfirm)
     var tokengoogle = await generateGoogleToken()
     var URL, json
-    process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
-        URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
+    // process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
+    //     URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
+    URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
     try {
         response = await fetch(URL, {
             method: 'PATCH',
@@ -194,13 +200,15 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIs
         setIsOpen(true)
     } catch (error) {
         var stringErrors = ''
-        for (const [key, value] of Object.entries(errors)) {
-            stringErrors += `<p>${value}</p>`
+        if(errors?.generic?.length > 0) {
+            const err = errors.generic
+            err.forEach((value) => {
+                stringErrors += `<p>${value}</p>`
+            })
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
         setIsOpen(true)
-        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
-            `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
+        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n ${stringErrors}`)
     }
 }
