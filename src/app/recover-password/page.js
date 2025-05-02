@@ -44,7 +44,8 @@ function Form() {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            margin: '4px'
+            margin: '4px',
+            fontWeight: 'bold',
         },
     };
 
@@ -54,6 +55,13 @@ function Form() {
     const subtitle = useRef(null);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [textModal, setTextModal] = useState('')
+    const [titleModal, setTitleModal] = useState('')
+
+    function setTitleTextModal(title, text) {
+        setTitleModal(title)
+        setTextModal(text)
+        openModal()
+    }    
 
     useEffect(() => {
         textModal ? openModal() : closeModal()
@@ -82,7 +90,10 @@ function Form() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div dangerouslySetInnerHTML={{ __html: textModal }}></div>
+                <div>
+                    <h1 className="w-full bg-blue-500 border border-black text-center text-white mb-2 rounded-xl">{titleModal}</h1>
+                    <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
+                </div>
                 <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer m-2" onClick={closeModal}>Fechar</button>
             </Modal>
 
@@ -146,7 +157,7 @@ function Form() {
                 <button
                     onClick={(event) => {
                         // handleSubmit(event);
-                        sendForm(id, hash, password, passwordConfirm, setTextModal, setIsOpen)
+                        sendForm(id, hash, password, passwordConfirm, setTitleTextModal) // setTextModal, setIsOpen
                     }}
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2 cursor-pointer"
@@ -166,7 +177,7 @@ export default function RecoverPassword() {
     )
 }
 
-async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIsOpen) {
+async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal) { //  setTextModal, setIsOpen
     var errors = {}
     var response
     NProgress.start()
@@ -196,8 +207,8 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIs
             throw new Error(`Erro: ${response.status}`);
         }
         NProgress.done()
-        setTextModal(`😃 Sucesso! Sua senha foi alterada com sucesso.`)
-        setIsOpen(true)
+        setTitleTextModal(`😃 Sucesso!`, `Sua senha foi alterada com sucesso.`)
+        // setIsOpen(true)
     } catch (error) {
         var stringErrors = ''
         if(errors?.generic?.length > 0) {
@@ -208,7 +219,7 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIs
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
-        setIsOpen(true)
-        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n ${stringErrors}`)
+        // setIsOpen(true)
+        setTitleTextModal(`Erros`, `😥 Os seguintes erros foram constatados pelo nosso servidor:\n ${stringErrors}`)
     }
 }
