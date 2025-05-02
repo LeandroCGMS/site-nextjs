@@ -77,7 +77,7 @@ function Form() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div><strong><pre>{textModal}</pre></strong></div>
+                <div><strong><pre dangerouslySetInnerHTML={{ __html: textModal }}></pre></strong></div>
                 <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer" onClick={closeModal}>Fechar</button>
             </Modal>
 
@@ -195,7 +195,7 @@ async function sendForm(id, hash, password, passwordConfirm, setTextModal, setIs
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
-            stringErrors += `${value}\n `
+            stringErrors += `<p>${value}</p>`
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
