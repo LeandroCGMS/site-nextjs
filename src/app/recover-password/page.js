@@ -112,7 +112,7 @@ function Form() {
                         onChange={(e) => setId(e.target.value)}
                         type="text"
                         className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ex: 123"
+                        placeholder="Copie e cole o id no formato UUID4"
                     />
                 </div>
 
