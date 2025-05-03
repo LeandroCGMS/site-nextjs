@@ -167,7 +167,7 @@ function Form() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-3 mt-4">
                         Nova Senha
                     </label>
                     {!visiblePassword ? <FaEye onClick={() => setVisiblePassword(!visiblePassword)} size={30} className="cursor-pointer ml-1"
@@ -185,7 +185,7 @@ function Form() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-3 mt-4">
                         Confirmação da Nova Senha
                     </label>
                     <div>
