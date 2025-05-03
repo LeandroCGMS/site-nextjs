@@ -9,6 +9,27 @@ import "nprogress/nprogress.css";
 import "./page.css";
 import Modal from 'react-modal';
 import { getNow } from "@/utils/functions";
+import { FaBeer } from 'react-icons/fa';
+import { FaCheckCircle } from 'react-icons/fa';
+import { FaExclamationTriangle } from 'react-icons/fa';
+import { FaTimesCircle } from 'react-icons/fa';
+import { FaExclamationCircle } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
+import { FaQuestionCircle } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { FaExclamation } from 'react-icons/fa';
+import { FaInfo } from 'react-icons/fa';
+import { FaQuestion } from 'react-icons/fa';
+import { FaCheckSquare } from 'react-icons/fa';
+import { FaTimesSquare } from 'react-icons/fa';
+import { FaExclamationSquare } from 'react-icons/fa';
+import { FaInfoSquare } from 'react-icons/fa';
+import { FaQuestionSquare } from 'react-icons/fa';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+
+
 var generateGoogleToken = null
 
 function Form() {
@@ -62,7 +83,7 @@ function Form() {
         setTitleModal(title)
         setTextModal(text)
         openModal()
-    }    
+    }
 
     useEffect(() => {
         textModal ? openModal() : closeModal()
@@ -74,12 +95,28 @@ function Form() {
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
-        if(subtitle?.current) subtitle.current.style.color = '#f00';
+        if (subtitle?.current) subtitle.current.style.color = '#f00';
     }
 
     function closeModal() {
         setIsOpen(false);
     }
+
+    const [visiblePassword, setVisiblePassword] = useState(false);
+    const [visiblePasswordConfirm, setVisiblePasswordConfirm] = useState(false);
+    const refPassword = useRef(null);
+    const refPasswordConfirm = useRef(null);
+    const [heighInputPassword, setHeighInputPassword] = useState()
+    const [heighInputPasswordConfirm, setHeighInputPasswordConfirm] = useState()
+
+    useEffect(() => {
+        if (refPassword?.current) {
+            setHeighInputPassword(refPassword?.current?.offsetHeight); // ou .clientHeight
+        }
+        if (refPasswordConfirm?.current) {
+            setHeighInputPasswordConfirm(refPasswordConfirm?.current?.offsetHeight); // ou .clientHeight
+        }
+    }, []);
 
     return (
 
@@ -133,11 +170,16 @@ function Form() {
                     <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
                         Nova Senha
                     </label>
+                    {!visiblePassword ? <FaEye onClick={() => setVisiblePassword(!visiblePassword)} size={30} className="cursor-pointer ml-1"
+                        style={{ marginBottom: `-${((heighInputPassword + 30) / 2)}px`, zIndex: 100 }} /> :
+                        <FaEyeSlash onClick={() => setVisiblePassword(!visiblePassword)} size={30} className="cursor-pointer ml-1"
+                            style={{ marginBottom: `-${((heighInputPassword + 30) / 2)}px`, zIndex: 100 }} />}
                     <input
+                        ref={refPassword}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type={visiblePassword ? "text" : "password"}
+                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9"
                         placeholder="Digite a nova senha"
                     />
                 </div>
@@ -146,11 +188,18 @@ function Form() {
                     <label className="block text-sm font-medium text-gray-700 mb-0 mt-4">
                         Confirmação da Nova Senha
                     </label>
+                    <div>
+                        {!visiblePasswordConfirm ? <FaEye onClick={() => setVisiblePasswordConfirm(!visiblePasswordConfirm)} size={30} className="cursor-pointer ml-1"
+                            style={{ marginBottom: `-${((heighInputPasswordConfirm + 30) / 2)}px`, zIndex: 100 }} /> :
+                            <FaEyeSlash onClick={() => setVisiblePasswordConfirm(!visiblePasswordConfirm)} size={30} className="cursor-pointer ml-1" 
+                            style={{ marginBottom: `-${((heighInputPasswordConfirm + 30) / 2)}px`, zIndex: 100 }} />}
+                    </div>
                     <input
+                        ref={refPasswordConfirm}
                         value={passwordConfirm}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        type={visiblePasswordConfirm ? "text" : "password"}
+                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9"
                         placeholder="Confirme a nova senha"
                     />
                 </div>
@@ -212,7 +261,7 @@ async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal) 
         // setIsOpen(true)
     } catch (error) {
         var stringErrors = ''
-        if(errors?.generic?.length > 0) {
+        if (errors?.generic?.length > 0) {
             const err = errors.generic
             err.forEach((value) => {
                 stringErrors += `<p>${value}</p>`
