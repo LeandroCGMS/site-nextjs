@@ -179,7 +179,7 @@ function Form() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         type={visiblePassword ? "text" : "password"}
-                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9"
+                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9 text-center"
                         placeholder="Digite a nova senha"
                     />
                 </div>
@@ -199,7 +199,7 @@ function Form() {
                         value={passwordConfirm}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
                         type={visiblePasswordConfirm ? "text" : "password"}
-                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9"
+                        className="mt-0 block w-full px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 pl-9 text-center"
                         placeholder="Confirme a nova senha"
                     />
                 </div>
