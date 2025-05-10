@@ -130,7 +130,7 @@ function Form() {
             >
                 <div>
                     <h1 className="w-full bg-blue-500 border border-black text-center text-white">{titleModal}</h1>
-                    <div className="border-l-1 ml-2 mt-2" style={{ padding: '1em' }}>
+                    <div className="border-l-1 border-r-1 ml-2 mr-2 mt-2" style={{ padding: '1em' }}>
                         <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
                     </div>
                 </div>
