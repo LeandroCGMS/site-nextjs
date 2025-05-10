@@ -66,7 +66,7 @@ function Form() {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             margin: '4px',
-            // padding: 0,
+            padding: 0,
             fontWeight: 'bold',
         },
     };
@@ -129,10 +129,12 @@ function Form() {
                 contentLabel="Example Modal"
             >
                 <div>
-                    <h1 className="w-full bg-blue-500 border border-black text-center text-white rounded-xl">{titleModal}</h1>
-                    <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
+                    <h1 className="w-full bg-blue-500 border border-black text-center text-white">{titleModal}</h1>
+                    <div className="border-l-1 ml-2 mt-2" style={{ padding: '1em' }}>
+                        <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
+                    </div>
                 </div>
-                <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer m-2" onClick={closeModal}>Fechar</button>
+                <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mb-2" onClick={closeModal}>Fechar</button>
             </Modal>
 
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
@@ -191,8 +193,8 @@ function Form() {
                     <div>
                         {!visiblePasswordConfirm ? <FaEye onClick={() => setVisiblePasswordConfirm(!visiblePasswordConfirm)} size={30} className="cursor-pointer ml-1"
                             style={{ marginBottom: `-${((heighInputPasswordConfirm + 30) / 2)}px`, zIndex: 100 }} /> :
-                            <FaEyeSlash onClick={() => setVisiblePasswordConfirm(!visiblePasswordConfirm)} size={30} className="cursor-pointer ml-1" 
-                            style={{ marginBottom: `-${((heighInputPasswordConfirm + 30) / 2)}px`, zIndex: 100 }} />}
+                            <FaEyeSlash onClick={() => setVisiblePasswordConfirm(!visiblePasswordConfirm)} size={30} className="cursor-pointer ml-1"
+                                style={{ marginBottom: `-${((heighInputPasswordConfirm + 30) / 2)}px`, zIndex: 100 }} />}
                     </div>
                     <input
                         ref={refPasswordConfirm}
