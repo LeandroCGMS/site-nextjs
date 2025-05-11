@@ -3,10 +3,17 @@ import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recapt
 import { FaKey } from '@/utils/functions';
 import { useRouter } from 'next/navigation'; // Importação do useRouter
 import { useEffect, useRef, useState } from "react";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 function Main() {
     const router = useRouter(); // Inicializa o hook useRouter
     const [btnAccessHover, setBtnAccessHover] = useState(false)
+    const [username, setUsername] = useState('')
+    const [userId, setUserId] = useState('')
+    const [userCpf, setUserCpf] = useState('')
+    const [userEmail, setUserEmail] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const styleDefaultBtnAccess = { 
         backgroundColor: 'rgb(226, 30, 233)',
         borderWidth: 3,
