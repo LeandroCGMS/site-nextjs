@@ -9,25 +9,7 @@ import "nprogress/nprogress.css";
 import "./page.css";
 import Modal from 'react-modal';
 import { getNow } from "@/utils/functions";
-import { FaBeer } from 'react-icons/fa';
-import { FaCheckCircle } from 'react-icons/fa';
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { FaTimesCircle } from 'react-icons/fa';
-import { FaExclamationCircle } from 'react-icons/fa';
-import { FaInfoCircle } from 'react-icons/fa';
-import { FaQuestionCircle } from 'react-icons/fa';
-import { FaCheck } from 'react-icons/fa';
-import { FaTimes } from 'react-icons/fa';
-import { FaExclamation } from 'react-icons/fa';
-import { FaInfo } from 'react-icons/fa';
-import { FaQuestion } from 'react-icons/fa';
-import { FaCheckSquare } from 'react-icons/fa';
-import { FaTimesSquare } from 'react-icons/fa';
-import { FaExclamationSquare } from 'react-icons/fa';
-import { FaInfoSquare } from 'react-icons/fa';
-import { FaQuestionSquare } from 'react-icons/fa';
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "@/utils/functions"
 
 
 var generateGoogleToken = null
@@ -131,7 +113,7 @@ function Form() {
                 <div>
                     <h1 className="w-full bg-blue-500 border border-black text-center text-white">{titleModal}</h1>
                     <div className="border-l-1 border-r-1 ml-2 mr-2 mt-2" style={{ padding: '1em' }}>
-                        <strong dangerouslySetInnerHTML={{ __html: textModal }}></strong>
+                        <div dangerouslySetInnerHTML={{ __html: textModal }}></div>
                     </div>
                 </div>
                 <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded cursor-pointer mb-2" onClick={closeModal}>Fechar</button>
@@ -266,12 +248,12 @@ async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal) 
         if (errors?.generic?.length > 0) {
             const err = errors.generic
             err.forEach((value) => {
-                stringErrors += `<p>${value}</p>`
+                stringErrors += `<p style="font-family: monospace">${value}</p>`
             })
         }
         console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
         // setIsOpen(true)
-        setTitleTextModal(`Erros`, `😥 Os seguintes erros foram constatados pelo nosso servidor:\n ${stringErrors}`)
+        setTitleTextModal(`Erros`, `<p style="font-family: monospace;">😥 Os seguintes erros foram constatados pelo nosso servidor:</p>\n ${stringErrors}`)
     }
 }
