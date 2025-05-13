@@ -10,30 +10,30 @@ import "./page.css";
 import Modal from 'react-modal';
 import { getNow } from "@/utils/functions";
 import { FaEye, FaEyeSlash } from "@/utils/functions"
-
-
-var generateGoogleToken = null
+import GoogleReCaptcha from "@/utils/google-recaptcha";
+import { useReCaptcha } from "@/utils/google-recaptcha";
 
 function Form() {
+    const { handleReCaptcha } = useReCaptcha();
     const [id, setId] = useState("");
     const [hash, setHash] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [token, setToken] = useState(null);
-    const handleReCaptcha = async () => {
-        if (!executeRecaptcha) {
-            console.log('reCAPTCHA não está carregado ainda');
-            return;
-        }
-        return await executeRecaptcha('action'); // 'homepage' é uma action específica, você pode definir a sua
-    }
-    generateGoogleToken = handleReCaptcha
+    // const handleReCaptcha = async () => {
+    //     if (!executeRecaptcha) {
+    //         console.log('reCAPTCHA não está carregado ainda');
+    //         return;
+    //     }
+    //     return await executeRecaptcha('action'); // 'homepage' é uma action específica, você pode definir a sua
+    // }
+    // // generateGoogleToken = handleReCaptcha
 
-    useEffect(() => {
-        // Chame a função para obter o token quando necessário, por exemplo, ao enviar um formulário.
-        // Você pode associar isso a um evento de clique de botão ou outra ação.
-    }, [executeRecaptcha]);
+    // useEffect(() => {
+    //     // Chame a função para obter o token quando necessário, por exemplo, ao enviar um formulário.
+    //     // Você pode associar isso a um evento de clique de botão ou outra ação.
+    // }, [executeRecaptcha]);
 
     const customStyles = {
         content: {
@@ -191,7 +191,7 @@ function Form() {
                 <button
                     onClick={(event) => {
                         // handleSubmit(event);
-                        sendForm(id, hash, password, passwordConfirm, setTitleTextModal) // setTextModal, setIsOpen
+                        sendForm(id, hash, password, passwordConfirm, setTitleTextModal, handleReCaptcha) // setTextModal, setIsOpen
                     }}
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors mt-2 cursor-pointer"
@@ -205,13 +205,13 @@ function Form() {
 
 export default function RecoverPassword() {
     return (
-        <GoogleReCaptchaProvider reCaptchaKey="6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG">
+        <GoogleReCaptcha>
             <Form />
-        </GoogleReCaptchaProvider>
+        </GoogleReCaptcha>
     )
 }
 
-async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal) { //  setTextModal, setIsOpen
+async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal, handleReCaptcha) { //  setTextModal, setIsOpen
     var errors = {}
     var response
     NProgress.start()
@@ -221,7 +221,7 @@ async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal) 
     formData.append('hash', hash)
     formData.append('password', password)
     formData.append('password_confirm', passwordConfirm)
-    var tokengoogle = await generateGoogleToken()
+    var tokengoogle = await handleReCaptcha()
     var URL, json
     process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
         URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
