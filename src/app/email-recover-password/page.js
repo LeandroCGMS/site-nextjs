@@ -9,6 +9,9 @@ import GoogleRecaptcha from "@/utils/google-recaptcha";
 import { getNow } from "@/utils/functions";
 import GoogleReCaptcha from "@/utils/google-recaptcha";
 import { useReCaptcha } from "@/utils/google-recaptcha";
+import { obj } from "@/utils/google-recaptcha";
+
+const { setTextModal} = obj
 
 function Main() {
     const { handleReCaptcha } = useReCaptcha();
@@ -69,7 +72,7 @@ function Main() {
                     className="w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
                 />
                 <button
-                    onClick={() => functionToExecuteToPasswordRecovery(username, id, CPF, email, handleReCaptcha)}
+                    onClick={() => functionToExecuteToPasswordRecovery(username, userId, userCpf, userEmail, handleReCaptcha)}
                     className="bg-blue-400 p-2 rounded-xl border border-blue-500 border-2 cursor-pointer active:bg-blue-500 active:border-3 active:border-blue-800">Enviar E-mail de Recuperação</button>
             </div>
         </div>
@@ -86,7 +89,7 @@ export default function EmailRecoverPassword() {
 
 async function functionToExecuteToPasswordRecovery(username, id, CPF, email, handleReCaptcha) {
     var errors = {}
-    formData = new FormData()
+    const formData = new FormData()
     const key = username ? 'username' : id ? 'id' : CPF ? 'cpf' : email ? 'email' : null;
     const value = username ? username : id ? id : CPF ? CPF : email ? email : null;
     formData.append(key, value)
@@ -110,16 +113,16 @@ async function functionToExecuteToPasswordRecovery(username, id, CPF, email, han
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        setTextModalRef(`🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
+        setTextModal('Sucesso', `🚀 Enviamos um e-mail para recuperação da sua conta. Leia as instruções dele e acesse o link informado. `)
         NProgress.done()
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
             stringErrors += `${value}\n`
         }
-        console.warn(`\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
+        console.warn('Erro', `\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
-        setTextModalRef(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
+        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
             `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
     }
 }

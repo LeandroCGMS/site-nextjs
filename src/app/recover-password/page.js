@@ -21,20 +21,6 @@ function Form() {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [token, setToken] = useState(null);
-    // const handleReCaptcha = async () => {
-    //     if (!executeRecaptcha) {
-    //         console.log('reCAPTCHA não está carregado ainda');
-    //         return;
-    //     }
-    //     return await executeRecaptcha('action'); // 'homepage' é uma action específica, você pode definir a sua
-    // }
-    // // generateGoogleToken = handleReCaptcha
-
-    // useEffect(() => {
-    //     // Chame a função para obter o token quando necessário, por exemplo, ao enviar um formulário.
-    //     // Você pode associar isso a um evento de clique de botão ou outra ação.
-    // }, [executeRecaptcha]);
-
     const customStyles = {
         content: {
             display: 'flex',
