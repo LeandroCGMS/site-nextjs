@@ -7,11 +7,8 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import GoogleRecaptcha from "@/utils/google-recaptcha";
 import { getNow } from "@/utils/functions";
-import GoogleReCaptcha from "@/utils/google-recaptcha";
 import { useReCaptcha } from "@/utils/google-recaptcha";
-import { obj } from "@/utils/google-recaptcha";
-
-const { setTextModal} = obj
+import { ModalGlobal } from "@/utils/modal";
 
 function Main() {
     const { handleReCaptcha } = useReCaptcha();
@@ -22,6 +19,7 @@ function Main() {
     const [userCpf, setUserCpf] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const setTextModalRef = useRef(null)
     const styleDefaultBtnAccess = {
         backgroundColor: 'rgb(226, 30, 233)',
         borderWidth: 3,
@@ -34,6 +32,7 @@ function Main() {
     }
     return (
         <div className="flex p-2 w-screen flex-col items-center justify-center h-screen bg-gray-100">
+            <ModalGlobal functionRef={fn => setTextModalRef.current = fn}/>
             <p className="w-2/3 text-center">Se você já recebeu um e-mail de recuperação, toque no botão abaixo para ser redirecionado à nossa página de redefinição.</p>
             <button
                 onMouseEnter={() => setBtnAccessHover(true)}
@@ -72,7 +71,7 @@ function Main() {
                     className="w-full p-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
                 />
                 <button
-                    onClick={() => functionToExecuteToPasswordRecovery(username, userId, userCpf, userEmail, handleReCaptcha)}
+                    onClick={() => functionToExecuteToPasswordRecovery(username, userId, userCpf, userEmail, handleReCaptcha, setTextModalRef.current)}
                     className="bg-blue-400 p-2 rounded-xl border border-blue-500 border-2 cursor-pointer active:bg-blue-500 active:border-3 active:border-blue-800">Enviar E-mail de Recuperação</button>
             </div>
         </div>
@@ -87,8 +86,9 @@ export default function EmailRecoverPassword() {
     );
 }
 
-async function functionToExecuteToPasswordRecovery(username, id, CPF, email, handleReCaptcha) {
+async function functionToExecuteToPasswordRecovery(username, id, CPF, email, handleReCaptcha, setTextModal) {
     var errors = {}
+    var json
     const formData = new FormData()
     const key = username ? 'username' : id ? 'id' : CPF ? 'cpf' : email ? 'email' : null;
     const value = username ? username : id ? id : CPF ? CPF : email ? email : null;
@@ -118,11 +118,11 @@ async function functionToExecuteToPasswordRecovery(username, id, CPF, email, han
     } catch (error) {
         var stringErrors = ''
         for (const [key, value] of Object.entries(errors)) {
-            stringErrors += `${value}\n`
+            stringErrors += `<p style="color: red">${value}</p>`
         }
         console.warn('Erro', `\n\n${getNow()}\nErro ao tentar recuperar senha\n${error.stack}\nLista de Erros: \n${stringErrors}`)
         NProgress.done()
-        setTextModal(`😥 Os seguintes erros foram constatados pelo nosso servidor:\n` ? stringErrors :
+        setTextModal('Erro', stringErrors ? `😥 Os seguintes erros foram constatados pelo nosso servidor:\n${stringErrors}` :
             `😥 Ocorreu um erro ao tentar recuperar sua senha. Tente novamente em instantes. Se o erro persistir, contact o suporte.`)
     }
 }
