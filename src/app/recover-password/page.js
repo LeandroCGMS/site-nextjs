@@ -209,9 +209,9 @@ async function sendForm(id, hash, password, passwordConfirm, setTitleTextModal, 
     formData.append('password_confirm', passwordConfirm)
     var tokengoogle = await handleReCaptcha()
     var URL, json
-    process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
-        URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
-    // URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
+    // process.env.NODE_ENV === 'development' ? URL = 'http://localhost/api-angular/recover-password/' :
+    //     URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
+    URL = 'https://nextjs.leandrocgms.online/api-angular/recover-password/'
     try {
         response = await fetch(URL, {
             method: 'PATCH',
