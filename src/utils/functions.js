@@ -18,8 +18,9 @@ import { FaQuestionSquare } from 'react-icons/fa';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaKey } from 'react-icons/fa';
+import { FaHeart, FaUsb, FaHdd } from "react-icons/fa";
 
-export { FaBeer, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaExclamationCircle, FaInfoCircle, FaQuestionCircle, FaCheck, FaTimes, FaExclamation, FaInfo, FaQuestion, FaCheckSquare, FaTimesSquare, FaExclamationSquare, FaInfoSquare, FaQuestionSquare, FaEye, FaEyeSlash, FaKey };
+export { FaBeer, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaExclamationCircle, FaInfoCircle, FaQuestionCircle, FaCheck, FaTimes, FaExclamation, FaInfo, FaQuestion, FaCheckSquare, FaTimesSquare, FaExclamationSquare, FaInfoSquare, FaQuestionSquare, FaEye, FaEyeSlash, FaKey, FaHeart, FaUsb, FaHdd };
 
 export function getNow() {
     return new Date().toLocaleString('pt-BR');
