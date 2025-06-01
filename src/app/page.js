@@ -16,10 +16,10 @@ export default function Home() {
                     {/* 🔽 Card de Links Amazon */}
                     <div className="bg-white text-gray-800 p-6 rounded-2xl shadow-lg max-w-md w-full mb-6 border border-gray-200">
                         <h4 className="text-xl font-semibold mb-1">
-                            Save money and support our site by choosing one of the options below:
+                            Save money and support our site by choosing one of the options below
                         </h4>
                         <h4 className="text-lg text-gray-600 mb-4">
-                            Economize e apoie nosso trabalho, com uma das opções abaixo:
+                            Economize e apoie nosso trabalho, com uma das opções abaixo
                         </h4>
                         <div className="space-y-3">
                             <a href="https://amzn.to/4mHrnxs" target="_blank" className="block w-full text-center bg-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-purple-400 transition">
