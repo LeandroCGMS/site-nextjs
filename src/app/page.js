@@ -18,7 +18,7 @@ export default function Home() {
                         <h4 className="text-xl font-semibold mb-1">
                             Save money and support our site by choosing one of the options below
                         </h4>
-                        <h4 className="text-lg text-gray-600 mb-4">
+                        <h4 className="text-xl font-semibold mb-4">
                             Economize e apoie nosso trabalho, com uma das opções abaixo
                         </h4>
                         <div className="space-y-3">
