@@ -43,13 +43,13 @@ export default function Home() {
                         <a
                             // href="https://leandrocgms.online"
                             onClick={redirectToHome}
-                            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+                            className="cursor-pointer w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                         >
                             Ir para Página Inicial
                         </a>
                         <button
                             onClick={() => router.push("/recover-password")}
-                            className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+                            className="cursor-pointer w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
                         >
                             Recuperação de Contas
                         </button>
