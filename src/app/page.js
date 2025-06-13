@@ -22,10 +22,6 @@ export default function Home() {
                             Economize e apoie nosso trabalho, com uma das opções abaixo
                         </h4>
                         <div className="space-y-3">
-                            <a href="https://amzn.to/4mHrnxs" target="_blank" className="block w-full text-center bg-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-purple-400 transition">
-                                <FaHeart size={20} />
-                                Presente para o dia dos namorados
-                            </a>
                             <a href="https://amzn.to/3HB8coI" target="_blank" className="block w-full text-center bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition">
                                 <FaUsb size={20} />
                                 Pendrives de 64GB
