@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
-import { FaHeart, FaUsb, FaHdd, FaTimes } from '@/utils/functions';
+import { FaHeart, FaUsb, FaHdd, FaTimes, FaSearch } from '@/utils/functions';
 
 export default function Home() {
     const router = useRouter();
@@ -31,6 +31,10 @@ export default function Home() {
                             Economize e apoie nosso trabalho, com uma das opções abaixo
                         </h4>
                         <div className="space-y-3">
+                            <a href="https://amzn.to/45Y5TX4" target="_blank" className="block w-full text-center bg-green-900 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+                                <FaSearch size={20} />
+                                Sua Pesquisa na Amazon
+                            </a>
                             <a href="https://amzn.to/3FH1PQu" target="_blank" className="block w-full text-center bg-blue-900 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition">
                                 <FaUsb size={20} />
                                 Pendrives de 32GB
