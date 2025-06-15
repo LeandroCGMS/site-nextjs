@@ -31,6 +31,10 @@ export default function Home() {
                             Economize e apoie nosso trabalho, com uma das opções abaixo
                         </h4>
                         <div className="space-y-3">
+                            <a href="https://amzn.to/3FH1PQu" target="_blank" className="block w-full text-center bg-blue-900 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+                                <FaUsb size={20} />
+                                Pendrives de 32GB
+                            </a>
                             <a href="https://amzn.to/3HB8coI" target="_blank" className="block w-full text-center bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition">
                                 <FaUsb size={20} />
                                 Pendrives de 64GB
