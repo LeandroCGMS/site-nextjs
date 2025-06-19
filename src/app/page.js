@@ -13,6 +13,21 @@ export default function Home() {
     async function hideDivMarketing() {
         setShowDivMarketing(false)
     }
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            // Mensagem padrão para a maioria dos navegadores (alguns podem ignorar)
+            e.preventDefault();
+            // Necessário para Chrome e alguns outros navegadores
+            e.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Limpeza: remove o event listener quando o componente é desmontado
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []); // O array vazio garante que o efeito só rode uma vez ao montar
     return (
         <GoogleReCaptchaProvider reCaptchaKey="6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG">
             <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
