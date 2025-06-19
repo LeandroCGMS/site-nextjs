@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useRouter } from "next/navigation";
 import { FaHeart, FaUsb, FaHdd, FaTimes, FaSearch } from '@/utils/functions';
+import styles from './page.module.css';
 
 export default function Home() {
     const router = useRouter();
@@ -18,7 +19,7 @@ export default function Home() {
                 <div className="bg-white text-gray-800 p-8 rounded-lg shadow-lg max-w-md text-center">
 
                     {/* 🔽 Card de Links Amazon */}
-                    {showDivMarketing && <div className="fixed left-1/2 -translate-x-1/2 top-1 bg-black text-gray-800 rounded-2xl p-1 shadow-lg max-w-md w-auto border border-orange-900 text-white">
+                    {showDivMarketing && <div className={`${styles.centralizado} bg-black text-gray-800 rounded-2xl p-1 shadow-lg max-w-md w-auto border border-orange-900 text-white`}>
                         <div className="bg-blue-400 content-center justify-center rounded-lg w-full border border-black">
                             <div className="rounded-lg bg-red-400 border border-white w-10 h-10 flex items-center justify-center cursor-pointer" onClick={hideDivMarketing}>
                                 <FaTimes size={20} />
