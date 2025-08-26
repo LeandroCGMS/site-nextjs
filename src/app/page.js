@@ -90,7 +90,10 @@ export default function Home() {
 }
 
 async function redirectToHome() {
+    const location = window.location.host.split(/[\.]/gmi)
+    const length = location.length
+    const protocol = window.location.protocol
     if (window != undefined) {
-        window.location.href = "https://leandrocgms.online";
+        window.location.href = `${protocol}//${location[length - 2]}.${location[length - 1]}`
     }
 }
